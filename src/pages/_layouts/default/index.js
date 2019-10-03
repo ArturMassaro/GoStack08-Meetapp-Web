@@ -1,9 +1,16 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Wrapper, Content, Scroll } from './styles';
 
-export default function defaultLayout() {
+import Header from '~/components/Header';
+
+export default function defaultLayout({ children }) {
   return (
-    <div />
+    <Scroll>
+      <Wrapper>
+        <Header />
+        {children}
+      </Wrapper>
+    </Scroll>
   );
 }

@@ -4,7 +4,6 @@ import { darken } from 'polished';
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #22202c, #402845);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +50,6 @@ export const Content = styled.div`
       background: #f94d6a;
       border: 0;
       border-radius: 4px;
-      font-weight: bold;
       margin-top: 5px;
       transition: background 0.2s;
 
