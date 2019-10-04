@@ -4,12 +4,14 @@ import pt from 'date-fns/locale/pt';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 import { Container, Header } from './styles';
+import Modal from '~/components/Modal';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
 export default function ShowMeetup() {
   const [meetup, setMeetup] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setMeetup(history.location.state);
@@ -35,46 +37,56 @@ export default function ShowMeetup() {
   }
 
   return (
-    <Container>
-      <Header>
-        <strong>{meetup.title}</strong>
+    <>
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(!showModal)}
+        title="Excluir Meetup ?"
+        onAction={() => handleDelete(meetup.id)}
+      >
+        Certeza que gostaria de excluir este meetup ?
+      </Modal>
+      <Container>
+        <Header>
+          <strong>{meetup.title}</strong>
 
-        <div>
-          <button type="button" className="edit" onClick={handleEdit}>
-            <MdEdit size={27} color="#fff" />
-            Editar
-          </button>
+          <div>
+            <button type="button" className="edit" onClick={handleEdit}>
+              <MdEdit size={27} color="#fff" />
+              Editar
+            </button>
 
-          <button
-            type="button"
-            className="delete"
-            onClick={() => handleDelete(meetup.id)}
-          >
-            <MdDeleteForever size={27} color="#fff" />
-            Cancelar
-          </button>
+            <button
+              type="button"
+              className="delete"
+              onClick={() => setShowModal(!showModal)}
+            >
+              <MdDeleteForever size={27} color="#fff" />
+              Cancelar
+            </button>
+          </div>
+        </Header>
+
+        {meetup.banner && (
+          <img src={`http://${meetup.banner.url}`} alt="Banner" />
+        )}
+
+        <p>{meetup.description}</p>
+
+        <div className="infos">
+          <div>
+            <MdEvent size={27} color="#fff" />
+            <p>
+              {meetup.date &&
+                format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", pt)}
+            </p>
+          </div>
+          <div>
+            <MdPlace size={27} color="#fff" />
+            <p>{meetup.locale}</p>
+          </div>
         </div>
-      </Header>
-
-      {meetup.banner && (
-        <img src={`http://${meetup.banner.url}`} alt="Banner" />
-      )}
-
-      <p>{meetup.description}</p>
-
-      <div className="infos">
-        <div>
-          <MdEvent size={27} color="#fff" />
-          <p>
-            {meetup.date &&
-              format(parseISO(meetup.date), "dd 'de' MMMM', às' HH'h'", pt)}
-          </p>
-        </div>
-        <div>
-          <MdPlace size={27} color="#fff" />
-          <p>{meetup.locale}</p>
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 }

@@ -11,6 +11,7 @@ export const Container = styled.div`
     height: 300px;
     object-fit: cover;
     margin-top: 50px;
+    border-radius: 4px;
   }
 
   > p {
@@ -27,9 +28,11 @@ export const Container = styled.div`
     div {
       display: flex;
       align-items: center;
+      justify-content: center;
       margin-right: 30px;
 
       p {
+        margin-bottom: 0 !important;
         color: #fff;
       }
       svg {

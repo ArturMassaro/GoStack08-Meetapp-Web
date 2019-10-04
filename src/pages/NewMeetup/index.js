@@ -18,18 +18,17 @@ export default function NewMeetup() {
   useEffect(() => {
     if (history.location.state) {
       const meet = history.location.state.meetup;
-      meet.date = format(parseISO(meet.date), 'dd/MM/yyyy');
-      console.tron.log(meet);
+      meet.date = format(parseISO(meet.date), "yyyy-MM-dd'T'hh:mm");
       setDescription(meet.description);
       setMeetup(history.location.state.meetup);
     }
   }, []);
 
   async function handleSave({ title, date, locale, banner_id }) {
+    console.tron.log(date);
+
     try {
       if (meetup.id) {
-        console.tron.log('entrou 1');
-
         await api.put(`organization/${meetup.id}`, {
           title,
           description,
@@ -38,8 +37,6 @@ export default function NewMeetup() {
           banner_id,
         });
       } else {
-        console.tron.log('entrou 2');
-
         await api.post('meetup', {
           title,
           description,

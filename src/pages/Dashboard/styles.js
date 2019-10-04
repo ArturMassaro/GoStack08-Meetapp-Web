@@ -42,14 +42,10 @@ export const Container = styled.div`
 `;
 
 export const Scroll = styled(PerfectScrollbar)`
-  padding-top: auto;
   height: 100%;
   max-height: 80vh;
   margin-top: 30px;
   border-radius: 4px;
-  display: flex;
-  align-items: start;
-  justify-content: start;
 
   ul {
     border-radius: 4px;
